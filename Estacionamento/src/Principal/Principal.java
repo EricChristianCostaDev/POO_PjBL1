@@ -70,19 +70,20 @@ public class Principal {
 	
 	private static void listar(String objeto){
 		
-		if(objeto == "Marcas"){
-			System.out.println("0 - Cadastrar nova marca");
-			for(int i=0; i<marcas.size(); i++) { 
-				System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
-			}
-		}
+		// if(objeto == "Marcas"){
+		// 	System.out.println("0 - Cadastrar nova marca");
+		// 	for(int i=0; i<marcas.size(); i++) { 
+		// 		System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
+		// 	}
+		// }
 
-		if(objeto == "Modelos"){
-			System.out.println("0 - Cadastrar novo modelo");
-			for(int i=0; i < Marca.getModelos.size(); i++) { 
-			System.out.println( (i + 1) + " - " + Marca.());
-			}
-		}
+		// if(objeto == "Modelos"){
+		// 	System.out.println("0 - Cadastrar novo modelo");
+		// 	for(int i=0; i < Marca.getModelos.size(); i++) { 
+		// 	System.out.println( (i + 1) + " - " + Marca.());
+		// 	}
+		// }
+	}
 		
 	public static void menu(){
 
