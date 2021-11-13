@@ -1,6 +1,6 @@
 package Modelagem;
 
-public class Modelo {
+public class Modelo  {
 
 	private String nome;
 

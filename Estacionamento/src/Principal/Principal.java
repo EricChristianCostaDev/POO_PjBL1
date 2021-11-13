@@ -21,8 +21,15 @@ public class Principal {
 		
 	public static void main(String[] args) {
         	// Adicionando marcas HardCoded
-			marcas.add(new Marca("Jeep") );
-			marcas.add(new Marca("Ford") );
+			Marca jeep  = new Marca("Jeep");
+			Marca ford  = new Marca("Ford");
+
+			Modelo teste = new Modelo("teste 1");
+
+			jeep.addModelos(teste);
+
+			marcas.add(jeep);
+			marcas.add(ford);
 			
 			menu();
         
@@ -70,19 +77,19 @@ public class Principal {
 	
 	private static void listar(String objeto){
 		
-		// if(objeto == "Marcas"){
-		// 	System.out.println("0 - Cadastrar nova marca");
-		// 	for(int i=0; i<marcas.size(); i++) { 
-		// 		System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
-		// 	}
-		// }
+		if(objeto == "Marcas"){
+			System.out.println("0 - Cadastrar nova marca");
+			for(int i=0; i<marcas.size(); i++) { 
+				System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
+			}
+		}
 
-		// if(objeto == "Modelos"){
-		// 	System.out.println("0 - Cadastrar novo modelo");
-		// 	for(int i=0; i < Marca.getModelos.size(); i++) { 
-		// 	System.out.println( (i + 1) + " - " + Marca.());
-		// 	}
-		// }
+		if(objeto == "Modelos"){
+			System.out.println("0 - Cadastrar novo modelo");
+			for(int i=0; i < marcas.size(); i++) { 
+			System.out.println( (i + 1) + " - " + marcas.get(i).getModelos());
+			}
+		}
 	}
 		
 	public static void menu(){
