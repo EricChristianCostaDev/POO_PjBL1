@@ -19,6 +19,14 @@ public class Marca {
 		this.nome = nome;
 	}
 
+	public ArrayList<Modelo> getModelos() {
+		return modelos;
+	}
+
+	public void setModelos(ArrayList<Modelo> modelos) {
+		this.modelos = modelos;
+	}
+
 	@Override
 	public String toString() {
 		return "Marca = " + nome ;

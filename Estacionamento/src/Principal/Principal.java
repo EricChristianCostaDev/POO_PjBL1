@@ -22,6 +22,8 @@ public class Principal {
 	public static void main(String[] args) {
         	// Adicionando marcas HardCoded
 			marcas.add(new Marca("Jeep") );
+			marcas.add(new Marca("Ford") );
+			
 			menu();
         
     }
@@ -31,17 +33,30 @@ public class Principal {
 		System.out.println("\n==> Escolha a marca do carro\n");
 		listar("Marcas");
 		// Opcoes para marcas
-		opcaoMarca;
-		opcaoMarca = marcas.get(scanner.nextInt()-1);
+		int opcaoMarca = scanner.nextInt();
+		if(opcaoMarca < 0 || opcaoMarca > marcas.size()){
+			System.out.println("\nOpcao invalida.\n");
+		}
+		else if(opcaoMarca == 0){
+			// Adicionar uma marca se não houver
+			cadastrarMarca();
+		}
+		else{
+			Marca marcaEscolhida = marcas.get(opcaoMarca - 1);
+			listar("Modelos");
 
-		// Adicionar uma marca se não houver
+			// Listar os modelos
 
-		// Listar os modelos
-		// Adicionar um modelo se não houver
+			// Adicionar um modelo se não houver
 
-		// Receber a Placa do carro
+			// Receber a Placa do carro
 
-		// Cadastrar o horário de entrada
+			// Cadastrar o horário de entrada
+
+
+
+		}
+
 	}
 		// criar o carro e cadastra-lo no vetor na posicao correta
 	
@@ -56,17 +71,21 @@ public class Principal {
 	private static void listar(String objeto){
 		
 		if(objeto == "Marcas"){
+			System.out.println("0 - Cadastrar nova marca");
 			for(int i=0; i<marcas.size(); i++) { 
 				System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
 			}
 		}
 
-		if(objeto == "Modelo"){
-
+		if(objeto == "Modelos"){
+			System.out.println("0 - Cadastrar novo modelo");
+			for(int i=0; i < Marca.getModelos.size(); i++) { 
+			System.out.println( (i + 1) + " - " + Marca.());
 			}
 		}
 		
 	public static void menu(){
+
 		int opcao;
 
 		do{
@@ -99,5 +118,17 @@ public class Principal {
         } while(opcao != 0);
 
 	    }
-	// outros m�todos static conforme especificacao do trabalho e necessidades de implementacao
+	
+	private static void cadastrarMarca() {
+			System.out.println("\n==> Cadastro de marca de carro\n");
+			String nome;
+			
+			scanner.nextLine();
+			System.out.print("   Marca a ser cadastrada: ");
+			nome = scanner.nextLine();
+			
+			Marca marca = new Marca(nome);
+			marcas.add(marca);
+		}
+		// outros m�todos static conforme especificacao do trabalho e necessidades de implementacao
 }
