@@ -1,6 +1,8 @@
 package Principal;
 import java.util.Scanner;
 
+import javax.sound.sampled.SourceDataLine;
+
 import java.util.ArrayList;
 
 import Modelagem.Carro;
@@ -9,60 +11,96 @@ import Modelagem.Modelo;
 
 public class Principal {
 	
-	// atributos static s„o atributos de classe
+	// atributos static sao atributos de classe
 	private static Carro[] vagas = new Carro[100]; // o estacionamento tem 100 vagas numeradas de 0..99
 	private static ArrayList<Marca> marcas = new ArrayList<Marca>();
 	private static ArrayList<Carro> historico = new ArrayList<Carro>();
 	
 	// eventualmente outros atributos static
-	
+	private static Scanner scanner = new Scanner(System.in);
 
-	
+
 	public static void menu(){
-	        System.out.println("\tMenu estacionamento");
-	        System.out.println("0. Fim");
-	        System.out.println("1. Entrada");
-	        System.out.println("2. SaÌda");
+	    
+		System.out.println("\tMenu estacionamento");
+	    System.out.println("0. Fim");
+	    System.out.println("1. Entrada");
+	    System.out.println("2. Saida");
 	    }
-	
-	
-	
+		
+		
+
+	public static void main(String[] args) {
+		int opcao;
+        	// Adicionando marcas HardCoded
+			marcas.add(new Marca("Jeep") );
+			
+        do{
+            menu();
+            opcao = scanner.nextInt();
+            
+            switch(opcao){
+				case 0:
+                System.out.println("Programa encerrado");	   
+				scanner.close();
+
+				break;
+
+            	case 1:
+				entradaCarro();
+				
+				break;
+                
+            	case 2:
+                
+				saidaCarro();
+				break;
+                
+            default:
+                System.out.println("Opcao invalida.");
+            }
+        } while(opcao != 0);
+    }
 	private static void entradaCarro() {
-		System.out.println("VocÍ entrou no mÈtodo entradaCarro().");
+		// Listar as marcas
+		System.out.println("\n==> Escolha a marca do carro\n");
+		listar("Marca");
+		// Opcoes para marcas
+		int opcaoMarca;
+		opcaoMarca = scanner.nextInt();
+
+		// Adicionar uma marca se n√£o houver
+
+		// Listar os modelos
+		// Adicionar um modelo se n√£o houver
+
+		// Receber a Placa do carro
+
+		// Cadastrar o hor√°rio de entrada
 	}
 		// criar o carro e cadastra-lo no vetor na posicao correta
 	
 	
 	private static float saidaCarro() {
-		System.out.println("VocÍ entrou no mÈtodo saidaCarro().");
+		System.out.println("Voce entrou no metodo saidaCarro().");
 		float preco = 0;
 		// logica para calcular preco do estacionamento e coloca-lo no historico
 		return preco;
 	}
 	
+	private static void listar(String objeto){
+		
+
+		if(objeto == "Marca"){
+			for(int i=0; i<marcas.size(); i++) { 
+				System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
+			}
+		}
+
+		if(objeto == "Modelo"){
+
+		}
+	}
 	
-	public static void main(String[] args) {
-		int opcao;
-        Scanner entrada = new Scanner(System.in);
-        
-        do{
-            menu();
-            opcao = entrada.nextInt();
-            
-            switch(opcao){
-            case 1:
-                entradaCarro();
-                break;
-                
-            case 2:
-                saidaCarro();
-                break;
-                
-            default:
-                System.out.println("OpÁ„o inv·lida.");
-            }
-        } while(opcao != 0);
-    }
-	
-	// outros mÈtodos static conforme especificacao do trabalho e necessidades de implementacao
+	// outros mÔøΩtodos static conforme especificacao do trabalho e necessidades de implementacao
 }
