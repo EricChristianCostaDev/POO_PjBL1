@@ -9,6 +9,7 @@ public class Marca {
 
 	public Marca(String nome) {
 		this.nome = nome;
+		modelos = new ArrayList<Modelo>();
 	}
 
 	public String getNome() {
@@ -23,8 +24,8 @@ public class Marca {
 		return modelos;
 	}
 
-	public void setModelos(ArrayList<Modelo> modelos) {
-		this.modelos = modelos;
+	public void addModelos(Modelo modelo) {
+		modelos.add(modelo);
 	}
 
 	@Override

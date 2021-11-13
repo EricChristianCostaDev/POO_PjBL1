@@ -20,18 +20,23 @@ public class Principal {
 	private static Scanner scanner = new Scanner(System.in);
 		
 	public static void main(String[] args) {
-        	// Adicionando marcas HardCoded
-			marcas.add(new Marca("Jeep") );
-			marcas.add(new Marca("Ford") );
-			
-			menu();
+        // Adicionando marcas HardCoded
+		Marca Jeep = new Marca("Jeep");
+		Marca Ford = new Marca("Ford");
+		Modelo Teste = new Modelo("Teste");
+		Ford.addModelos(Teste);
+
+		marcas.add(Jeep);
+		marcas.add(Ford);
+
+		menu();
         
     }
 	
 	private static void entradaCarro() {
 		// Listar as marcas
 		System.out.println("\n==> Escolha a marca do carro\n");
-		listar("Marcas");
+		listarMarcas();
 		// Opcoes para marcas
 		int opcaoMarca = scanner.nextInt();
 		if(opcaoMarca < 0 || opcaoMarca > marcas.size()){
@@ -43,10 +48,11 @@ public class Principal {
 		}
 		else{
 			Marca marcaEscolhida = marcas.get(opcaoMarca - 1);
-			listar("Modelos");
 
 			// Listar os modelos
-
+			listarModelos(marcaEscolhida);
+			
+			int opcaoModelo = scanner.nextInt();
 			// Adicionar um modelo se não houver
 
 			// Receber a Placa do carro
@@ -68,22 +74,24 @@ public class Principal {
 		return preco;
 	}
 	
-	private static void listar(String objeto){
+	private static void listarMarcas(){
+		System.out.println("0 - Cadastrar nova marca");
 		
-		if(objeto == "Marcas"){
-			System.out.println("0 - Cadastrar nova marca");
-			for(int i=0; i<marcas.size(); i++) { 
-				System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
-			}
+		for(int i=0; i<marcas.size(); i++) { 
+			System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
 		}
 
-		if(objeto == "Modelos"){
-			System.out.println("0 - Cadastrar novo modelo");
-			for(int i=0; i < Marca.getModelos.size(); i++) { 
-			System.out.println( (i + 1) + " - " + Marca.());
-			}
 		}
-		
+
+	private static void listarModelos(Marca marcaEscolhida){
+		System.out.println("0 - Cadastrar nova marca");
+
+		for(int i=0; i < marcaEscolhida.getModelos().size(); i++) { 
+			System.out.println( (i + 1) + " - " + marcaEscolhida.getModelos().get(i).getNome());
+		}
+
+		}
+
 	public static void menu(){
 
 		int opcao;
