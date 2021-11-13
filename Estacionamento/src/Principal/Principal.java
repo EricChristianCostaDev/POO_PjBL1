@@ -18,56 +18,21 @@ public class Principal {
 	
 	// eventualmente outros atributos static
 	private static Scanner scanner = new Scanner(System.in);
-
-
-	public static void menu(){
-	    
-		System.out.println("\tMenu estacionamento");
-	    System.out.println("0. Fim");
-	    System.out.println("1. Entrada");
-	    System.out.println("2. Saida");
-	    }
 		
-		
-
 	public static void main(String[] args) {
-		int opcao;
         	// Adicionando marcas HardCoded
 			marcas.add(new Marca("Jeep") );
-			
-        do{
-            menu();
-            opcao = scanner.nextInt();
-            
-            switch(opcao){
-				case 0:
-                System.out.println("Programa encerrado");	   
-				scanner.close();
-
-				break;
-
-            	case 1:
-				entradaCarro();
-				
-				break;
-                
-            	case 2:
-                
-				saidaCarro();
-				break;
-                
-            default:
-                System.out.println("Opcao invalida.");
-            }
-        } while(opcao != 0);
+			menu();
+        
     }
+	
 	private static void entradaCarro() {
 		// Listar as marcas
 		System.out.println("\n==> Escolha a marca do carro\n");
-		listar("Marca");
+		listar("Marcas");
 		// Opcoes para marcas
-		int opcaoMarca;
-		opcaoMarca = scanner.nextInt();
+		opcaoMarca;
+		opcaoMarca = marcas.get(scanner.nextInt()-1);
 
 		// Adicionar uma marca se não houver
 
@@ -90,8 +55,7 @@ public class Principal {
 	
 	private static void listar(String objeto){
 		
-
-		if(objeto == "Marca"){
+		if(objeto == "Marcas"){
 			for(int i=0; i<marcas.size(); i++) { 
 				System.out.println( (i + 1) + " - " + marcas.get(i).getNome());
 			}
@@ -99,8 +63,41 @@ public class Principal {
 
 		if(objeto == "Modelo"){
 
+			}
 		}
-	}
-	
+		
+	public static void menu(){
+		int opcao;
+
+		do{
+		System.out.println("\tMenu estacionamento");
+	    System.out.println("0. Fim");
+	    System.out.println("1. Entrada");
+	    System.out.println("2. Saida");
+        opcao = scanner.nextInt();
+            
+            switch(opcao){
+				case 0:
+                System.out.println("Programa encerrado");	   
+				scanner.close();
+
+				break;
+
+            	case 1:
+				entradaCarro();
+				
+				break;
+                
+            	case 2:
+                
+				saidaCarro();
+				break;
+                
+            default:
+                System.out.println("Opcao invalida.");
+            }
+        } while(opcao != 0);
+
+	    }
 	// outros m�todos static conforme especificacao do trabalho e necessidades de implementacao
 }
