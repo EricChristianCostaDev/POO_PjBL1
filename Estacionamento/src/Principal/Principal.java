@@ -40,19 +40,39 @@ public class Principal {
 		Marca Mustang = new Marca("Mustang");
 		Modelo Teste = new Modelo("Teste");
 		Modelo Teste2 = new Modelo("Teste2");
-    Modelo Ranger = new Modelo("Ranger");
+    	Modelo Ranger = new Modelo("Ranger");
     
 		Ford.addModelos(Teste);
-    Ford.addModelos(Ranger);
+    	Ford.addModelos(Ranger);
 		Jeep.addModelos(Teste2);
 		
 		marcas.add(Mustang);
 		marcas.add(Jeep);
 		marcas.add(Ford);
 
-		System.out.println("Mustang " + marcas.get(0).getModelos().get(0).getNome() );
-		System.out.println("Jeep " + marcas.get(1).getModelos().get(0).getNome() );
-		System.out.println("Ford " + marcas.get(2).getModelos().get(0).getNome() );
+
+		String str1 = "2021-11-13 19:52:00";
+		String str2 = "2021-11-13 19:20:00";
+		String str3 = "2021-11-13 19:42:00";
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime datetime1 = LocalDateTime.parse(str1, dtf);
+		LocalDateTime datetime2 = LocalDateTime.parse(str2, dtf);
+		LocalDateTime datetime3 = LocalDateTime.parse(str3, dtf);
+
+		Carro carro1 = new Carro(Teste, "123456", datetime1);
+		Carro carro2 = new Carro(Teste, "123456", datetime2);
+		Carro carro3 = new Carro(Teste, "123456", datetime3);
+		
+		LocalDateTime horarioSaida = LocalDateTime.now();
+		
+		carro1.setValor((float) 10);
+		carro2.setValor((float) 12);
+		carro3.setValor((float) 14);
+
+		vagas[0] = carro1;
+		vagas[1] = carro2;
+		vagas[2] = carro3;
+
 
 		menu();
         
@@ -85,7 +105,6 @@ public class Principal {
 	}
 	
 	private static float saidaCarro() {
-		System.out.println("Voce entrou no metodo saidaCarro().");
 		float preco = 0;
 
 		// Carro[] vagas = new Carro[100];
@@ -95,19 +114,14 @@ public class Principal {
 		String str = "2021-11-13 19:52:00";
 		LocalDateTime dateTime = LocalDateTime.parse(str, dtf);
 
-		vagas[0] = new Carro(Teste, "123456", dateTime);
-
-		
-		for(int i=0; i<vagas.length; i++) { 
-			System.out.println( (i + 1) + " - " + vagas[i]);
-		}
+		mostrarOcupacao();
 			
 		System.out.println("\n==> Escolha uma vaga\n");
 
-		int opcaoVaga = scanner.nextInt();
+		int opcaoVaga = scanner.nextInt() - 1;
 
 		if(opcaoVaga < 0 || opcaoVaga > vagas.length){
-			System.out.println("\nOpcao invalida! Escolha um numero entre 0 e 100\n");
+			System.out.println("\nOpcao inválida! Escolha um numero entre 0 e 100\n");
 		}else{
 			System.out.println("O carro que está ocupando a vaga escolhida é: " + vagas[opcaoVaga]);
 			System.out.println("\n Digite 1 para confirmar ou 2 para escolher outra vaga\n");
@@ -117,54 +131,31 @@ public class Principal {
 				= new SimpleDateFormat(
 					"dd-MM-yyyy HH:mm:ss");
 
-				
-				System.out.println("Confirmei a liberação da vaga \n");
 				LocalDateTime horarioEntrada = vagas[opcaoVaga].getEntrada();
 				LocalDateTime horarioSaida = LocalDateTime.now();
-				
-				System.out.println("horarioEntrada " + horarioEntrada);
-				System.out.println("horarioSaida " + horarioSaida);
 
 				long diff = ChronoUnit.SECONDS.between(horarioEntrada, horarioSaida);
 
 				if(diff/3600 >= 1){
 					long tempoCalcular = diff - 3600;
 					long valorAdicional = Math.round(tempoCalcular/900);
-					System.out.println("tempoCalcular " + tempoCalcular);
-					System.out.println("valorAdicional " + valorAdicional);
 
 					preco = 10 + valorAdicional*2;
 				
 					vagas[opcaoVaga].setValor(preco);
-					System.out.println("valor R$ " + vagas[opcaoVaga].getValor());
+					// System.out.println("valor R$ " + vagas[opcaoVaga].getValor());
 					
 				}else{
 					preco = 10;
 					vagas[opcaoVaga].setValor(preco);
-					System.out.println("valor R$ " + vagas[opcaoVaga].getValor());
+					// System.out.println("valor R$ " + vagas[opcaoVaga].getValor());
 				}
-
-
 				System.out.println("diferença: " + diff);
-
 				vagas[opcaoVaga].setSaida(horarioSaida);
-
 				historico.add(vagas[opcaoVaga]);
-				System.out.println("historico atual " + historico.get(0));
-				System.out.println("historico atual valor " + historico.get(0).getValor());
-				System.out.println("historico atual data saida " + historico.get(0).getSaida());
 				vagas[opcaoVaga] = null;
-				System.out.println("vagas atual " + vagas[opcaoVaga]);
 			}
 		}
-
-		
-		
-		// for(int i=0; i<vagas.length; i++) { 
-		// 	System.out.println( (i + 1) + " - " + vagas[i]);
-		// }
-
-		// logica para calcular preco do estacionamento e coloca-lo no historico
 		return preco;
 	}
 	
@@ -177,29 +168,30 @@ public class Principal {
 
 		}
 
-	private static Marca  findMarcaByModelo(Modelo modelo) {
+	private static String  findMarcaByModelo(Modelo modelo) {
 			for(int j=0; j < marcas.size(); j++){
 				for(int i=0; i < marcas.get(j).getModelos().size(); i++){
-					System.out.println("\n Marca " + marcas.get(j) + " Modelo " + marcas.get(j).getModelos().get(i).getNome() );
+					
 					if(marcas.get(j).getModelos().get(i).getNome().equalsIgnoreCase(modelo.getNome())){
-						System.out.println("Entei no if !!!");
-						return marcas.get(j); 
+						
+						return marcas.get(j).getNome(); 
 					}
 				}
-	
 			}
-			return marcas.get(0);
+			return "";
+	}
+	
 	private static void mostrarOcupacao(){
 		for(int i=0; i < 100; i++){
+			int pos = i + 1;
 			if(vagas[i] == null){
-				System.out.println("Vaga Vazia");
+				System.out.println("N°" + pos + " Vaga Vazia");
 			}
 			else{
-				System.out.println("Ocupada pelo carro -> " + vagas[i]);
+				System.out.println("N°" + pos + " Vaga ocupada pelo carro -> " + vagas[i]);
 			}
 		}
 		System.out.println();
-
 	}
 
 	private static void listarModelos(Marca marcaEscolhida){
@@ -217,132 +209,78 @@ public class Principal {
 	private static void gerarRelatorio(int mes,int ano,int dia){
 		
 		String dataFormatada =  Integer.toString(ano) + "-" + Integer.toString(mes) + "-" + Integer.toString(dia) + " 00:00:00";
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime dataEscolhida = LocalDateTime.parse(dataFormatada, dtf);
-		System.out.println("\n a data formatada " + dataEscolhida);
 
 		Modelo Teste = new Modelo("Testando");
 		DateTimeFormatter dataformatteste = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
-		
-		
-
-		String str1 = "2021-11-13 19:52:00";
-		String str2 = "2021-11-13 19:20:00";
-		String str3 = "2021-11-13 19:42:00";
-
-		LocalDateTime datetime1 = LocalDateTime.parse(str1, dtf);
-		LocalDateTime datetime2 = LocalDateTime.parse(str2, dtf);
-		LocalDateTime datetime3 = LocalDateTime.parse(str3, dtf);
-
-		Carro teste1 = new Carro(Teste, "123456", datetime1);
-		Carro teste2 = new Carro(Teste, "123456", datetime2);
-		Carro teste3 = new Carro(Teste, "123456", datetime3);
-		LocalDateTime horarioSaida = LocalDateTime.now();
-		
-		teste1.setValor((float) 10);
-		teste1.setSaida(horarioSaida);
-
-		teste2.setValor((float) 12);
-		teste2.setSaida(horarioSaida);
-		
-		teste3.setValor((float) 14);
-		teste3.setSaida(horarioSaida);
-
-		historico.add(teste1);
-		historico.add(teste2);
-		historico.add(teste3);
-
-		System.out.println("\n Antes ");
-		listarMarcas();
-
-		Marca Ferrari = new Marca("Ferrari");
-		Ferrari.addModelos(Teste);
-		System.out.println("\n Depois ");
-		listarMarcas();
-
-		System.out.println("\n return do findMarcaByModelo " + findMarcaByModelo(Teste));
 	
-
-		System.out.println("\n historico sem o  filtro " + historico);
+	
 
 		//|| e.getSaida().format(dataformatteste) == dataEscolhida.format(dataformatteste)
 
 		Carro[] arr = historico.stream().filter(e ->{
-			if ((e.getEntrada().toLocalDate().compareTo(dataEscolhida.toLocalDate())) == 0){
+			if ((e.getEntrada().toLocalDate().compareTo(dataEscolhida.toLocalDate())) == 0 || 
+			(e.getSaida().toLocalDate().compareTo(dataEscolhida.toLocalDate())) == 0
+			){
 				return true;
 			}else{
 				return false;
 			}
 		} ).toArray(Carro[]::new);
-
-		
 		
 		List<Carro> list1 = new ArrayList<Carro>();
+
 		Collections.addAll(list1, arr);
 
-		System.out.println("\n historico com o  filtro " + list1);
-
-		Collections.sort(list1, 
-                        (o1, o2) -> o1.getEntrada().compareTo(o2.getEntrada()));
-
-
-		
+		Collections.sort(list1, (o1, o2) -> o1.getEntrada().compareTo(o2.getEntrada()));
 						
-		list1.forEach((n) -> {
-			
-			
-			valorTotal = valorTotal + n.getValor();
-			// System.out.println()
-		});
-
-		System.out.println("valor total" + valorTotal);
+		list1.forEach((n) -> {valorTotal = valorTotal + n.getValor();});
 
 		list1.forEach((n) -> {
-			System.out.println("\n  Placa: " + " Modelo: " + n.getModelo() + 
-								  " Marca " + n.getModelo() + " Horario de entrada: " + n.getEntrada() + 
-								  " Horario de saida " + n.getSaida() + " valor " + n.getValor() );
+			System.out.println("\n  Placa: " + n.getPlaca() + " Modelo: " + n.getModelo() + 
+								  " Marca " + findMarcaByModelo(n.getModelo()) + " Horario de entrada: " + n.getEntrada() + 
+								  " Horario de saida " + n.getSaida() + " valor R$ " + n.getValor() );
 		});
-		System.out.println("\n\n Valor total:  R$ " + valorTotal );
-		
+		System.out.println("\n  Valor total do dia: R$ " + valorTotal );
+		System.out.println();
 	}
 
 	private static void relatorioGerencial(){
-		System.out.println("\t Digite o ano ");
-		int ano = scanner.nextInt();
-		System.out.println("\t Digite o mes (numero) ");
-		int mes = scanner.nextInt();
-		int dia = 0;
+
+		scanner.nextLine();
+		System.out.println("\t Digite a data no seguinte formato dd/MM/aaaa");
+		String data = scanner.nextLine();
+		System.out.println("\t a data digitada foi  " + data);
+
+		String[] arrData = data.split("/");
+		
+		int dia = Integer.parseInt(arrData[0]);
+		int mes = Integer.parseInt(arrData[1]);
+		int ano = Integer.parseInt(arrData[2]);
 		
 		if(mes>0 && mes<=12){
-			System.out.println("\t Digite o dia ");
-				dia = scanner.nextInt();
-
 				if(mes == 4 || mes == 6 || mes == 9 || mes == 11 ){
 					if (dia >=1 && dia<=30){
 						 gerarRelatorio( mes, ano, dia);
 					}else{
-						System.out.println("\t Digite um valor entre 1 e 30  ");
+						System.out.println("\t Data inválida! Para o dia digite um valor entre 1 e 30  ");
 					}
-	
-				
 				}else if (mes  == 2){
 					if (dia >=1 && dia<29){
 						 gerarRelatorio( mes, ano, dia);
 					}else{
-						System.out.println("\t Digite um valor entre 1 e 29  ");
+						System.out.println("\t Data inválida! Para o dia digite um valor entre 1 e 29  ");
 					}
-	
-	
 				}else {
 					if (dia >=1 && dia<31){
 						 gerarRelatorio( mes, ano, dia);
 					}else{
-						System.out.println("\t Digite um valor entre 1 e 31");
+						System.out.println("\t Data inválida! Para o dia digite um valor entre 1 e 31");
 					}
-	
 				}
 		}else {
-			System.out.println("\t Digite um valor entre 1(janeiro) e 12(dezembro)  ");
+			System.out.println("\t Data inválida! Digite um valor para o mês entre 1(janeiro) e 12(dezembro)  ");
 		}
 	}	
 		
@@ -352,17 +290,17 @@ public class Principal {
 		int opcao;
 
 		do{
-		System.out.println("\tMenu estacionamento");
-	  System.out.println("0. Finalizar o programa");
-	  System.out.println("1. Cadastrar entrada de um carro");
-	  System.out.println("2. Efetuar a saida de um carro");
-		System.out.println("3. Mostrar ocupacao do estacionamento");
-		System.out.println("4. Cadastrar Marca de carro");
-		System.out.println("5. Cadastrar Modelo de carro");
-    System.out.println("6. Mostrar relatório gerencial consolidado");
-		System.out.print("Opcao: ");
+			System.out.println("\tMenu estacionamento");
+	  		System.out.println("0. Finalizar o programa");
+	  		System.out.println("1. Cadastrar entrada de um carro");
+	  		System.out.println("2. Efetuar a saida de um carro");
+			System.out.println("3. Mostrar ocupacao do estacionamento");
+			System.out.println("4. Cadastrar Marca de carro");
+			System.out.println("5. Cadastrar Modelo de carro");
+    		System.out.println("6. Mostrar relatório gerencial consolidado");
+			System.out.print("Opcao: ");
       
-        opcao = scanner.nextInt();
+        	opcao = scanner.nextInt();
             
             switch(opcao){
 				case 0:
@@ -371,12 +309,12 @@ public class Principal {
 
 				break;
 
-        case 1:
+        		case 1:
 				entradaCarro();
 				
 				break;
                 
-        case 2:
+       			case 2:
                 
 				saidaCarro();
 				break;
@@ -397,16 +335,15 @@ public class Principal {
 
 				break;
                 
-        case 6:
-				relatorioGerencial();
-        break;
+				case 6:
+						relatorioGerencial();
+				break;
                 
-            default:
-                System.out.println("Opcao invalida.");
+				default:
+					System.out.println("Opcao invalida.");
             }
-        } while(opcao != 0);
-
-	    }
+       	 } while(opcao != 0);
+	}
 	
 	private static Marca cadastrarMarca() {
 			System.out.println("\n==> Cadastro de marca de carro\n");
@@ -448,7 +385,6 @@ public class Principal {
 				}
 			}
 
-
 			Modelo modelo = new Modelo(nome);
 			marcaEscolhida.addModelos(modelo);
 
@@ -473,9 +409,7 @@ public class Principal {
 					System.out.println("Nao ha vaga disponivel.");
 				}
 			}
-
-	
-			}
+		}
 	
 	private static Marca escolherMarca(){
 		System.out.println("\n==> Escolha a marca do carro\n");
@@ -486,8 +420,6 @@ public class Principal {
 			System.out.println("\nOpcao invalida.\n");
 		}
 		else if(opcaoMarca == 0){
-			// Adicionar uma marca se não houver
-			
 			return cadastrarMarca();
 		}
 		else{
@@ -496,5 +428,4 @@ public class Principal {
 		}
 		return marcas.get(opcaoMarca - 1);
 		}
-		// outros m�todos static conforme especificacao do trabalho e necessidades de implementacao
 }

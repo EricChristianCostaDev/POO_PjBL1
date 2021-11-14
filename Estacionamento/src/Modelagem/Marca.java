@@ -1,20 +1,17 @@
 package Modelagem;
 
 import java.util.ArrayList;
-import Modelagem.Modelo;
 
 public class Marca {
 
 	private String nome;
-	private static ArrayList<Modelo> modelos;
-	
+	private ArrayList<Modelo> modelos;
 
 	public Marca(String nome) {
 		this.nome = nome;
 		modelos = new ArrayList<Modelo>();
 	}
 
-	
 	public String getNome() {
 		return nome;
 	}
