@@ -24,8 +24,8 @@ public class Principal {
         // Adicionando marcas HardCoded
 		Marca Jeep = new Marca("Jeep");
 		Marca Ford = new Marca("Ford");
-		Modelo Teste = new Modelo("Teste");
-		Ford.addModelos(Teste);
+		Modelo Ranger = new Modelo("Ranger");
+		Ford.addModelos(Ranger);
 
 		marcas.add(Jeep);
 		marcas.add(Ford);
@@ -89,7 +89,7 @@ public class Principal {
 
 	}
 
-		private static void listarModelos(Marca marcaEscolhida){
+	private static void listarModelos(Marca marcaEscolhida){
 		System.out.println("0 - Cadastrar novo modelo");
 
 		for(int i=0; i < marcaEscolhida.getModelos().size(); i++) { 
@@ -98,7 +98,7 @@ public class Principal {
 
 		}
 
-		private static void menu(){
+	private static void menu(){
 
 		int opcao;
 
@@ -152,20 +152,28 @@ public class Principal {
 
 	    }
 	
-		private static Marca cadastrarMarca() {
+	private static Marca cadastrarMarca() {
 			System.out.println("\n==> Cadastro de marca de carro\n");
 			String nome;
 			
 			scanner.nextLine();
 			System.out.print("   Marca a ser cadastrada: ");
 			nome = scanner.nextLine();
-			
+
+			for(int j=0; j < marcas.size(); j++){
+				if(marcas.get(j).getNome().equalsIgnoreCase(nome)){
+					Marca marca = marcas.get(j);
+					System.out.println("   \nMarca ja registrada!\n");
+					return marca;
+				}
+			}
+
 			Marca marca = new Marca(nome);
 			marcas.add(marca);
 			return marca;
 		}
 	
-		private static Modelo cadastrarModelo(Marca marcaEscolhida) {
+	private static Modelo cadastrarModelo(Marca marcaEscolhida) {
 			System.out.println("\n==> Cadastro do modelo da marca\n");
 			String nome;
 			
@@ -174,16 +182,26 @@ public class Principal {
 			nome = scanner.nextLine();
 			System.out.print("\n");
 
+
+			for(int j=0; j < marcaEscolhida.getModelos().size(); j++){
+
+				if(marcaEscolhida.getModelos().get(j).getNome().equalsIgnoreCase(nome)){
+					Modelo modelo = marcaEscolhida.getModelos().get(j);
+					System.out.println("   \nModelo ja registrado!\n");
+					return modelo;
+				}
+			}
+
+
 			Modelo modelo = new Modelo(nome);
 			marcaEscolhida.addModelos(modelo);
 
 			return modelo;
 		}
 		
-		private static void estacionarCarro(Modelo modeloEscolhido){
+	private static void estacionarCarro(Modelo modeloEscolhido){
 				// Receber a Placa do carro com horario de entrada
 				System.out.println("\n==> Digite a placa do carro\n");
-				scanner.nextLine();
 				System.out.print("   Placa: ");
 				String placa = scanner.next();
 				Carro carro = new Carro(modeloEscolhido, placa, LocalDateTime.now());
@@ -202,8 +220,8 @@ public class Principal {
 
 	
 			}
-		
-		private static Marca escolherMarca(){
+	
+	private static Marca escolherMarca(){
 		System.out.println("\n==> Escolha a marca do carro\n");
 		listarMarcas();
 
@@ -222,5 +240,5 @@ public class Principal {
 		}
 		return marcas.get(opcaoMarca - 1);
 		}
-			// outros m�todos static conforme especificacao do trabalho e necessidades de implementacao
+		// outros m�todos static conforme especificacao do trabalho e necessidades de implementacao
 }
