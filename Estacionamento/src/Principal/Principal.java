@@ -33,6 +33,7 @@ public class Principal {
 	private static Scanner scanner = new Scanner(System.in);
 		
 	public static void main(String[] args) {
+		
         // Adicionando marcas HardCoded
 		Marca Jeep = new Marca("Jeep");
 		Marca Ford = new Marca("Ford");
@@ -203,9 +204,6 @@ public class Principal {
 
 		}
 	
-	
-
-
 	private static void gerarRelatorio(int mes,int ano,int dia){
 		
 		String dataFormatada =  Integer.toString(ano) + "-" + Integer.toString(mes) + "-" + Integer.toString(dia) + " 00:00:00";
@@ -238,9 +236,9 @@ public class Principal {
 		list1.forEach((n) -> {valorTotal = valorTotal + n.getValor();});
 
 		list1.forEach((n) -> {
-			System.out.println("\n  Placa: " + n.getPlaca() + " Modelo: " + n.getModelo() + 
-								  " Marca " + findMarcaByModelo(n.getModelo()) + " Horario de entrada: " + n.getEntrada() + 
-								  " Horario de saida " + n.getSaida() + " valor R$ " + n.getValor() );
+			System.out.println("\n  Placa: " + n.getPlaca() + " | Modelo: " + n.getModelo() + 
+								  " | Marca: " + findMarcaByModelo(n.getModelo()) + " | Horario de entrada: " + n.getEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + 
+								  " | Horario de saida " + n.getSaida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + " | valor R$ " + n.getValor() );
 		});
 		System.out.println("\n  Valor total do dia: R$ " + valorTotal );
 		System.out.println();
@@ -284,7 +282,6 @@ public class Principal {
 		}
 	}	
 		
-
 	private static void menu(){
 
 		int opcao;
