@@ -2,6 +2,7 @@ package Modelagem;
 
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Carro {
 
@@ -62,7 +63,7 @@ public class Carro {
 
 	@Override
 	public String toString() {
-		return "Carro [modelo=" + modelo + ", placa=" + placa + ", entrada=" + entrada + "]";
+		return "Modelo: " + modelo + " Placa: " + placa + " Data de entrada: " + entrada.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) ;
 	}
 	
 }
